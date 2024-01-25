@@ -1,8 +1,10 @@
-const inquirer = require('inquirer'); // this imports the inquirer package/module
-const fs = require('fs'); // imports the fs (built-in node module)
+const inquirer = require("inquirer"); // this imports the inquirer package/module
+const fs = require("fs"); // imports the fs (built-in node module)
 
-const generateHTML = ({ name, location, github, linkedin, instagram }) => // this destructures the object, generates html and returns back with properties inserted
-    `<!DOCTYPE html>
+const generateHTML = (
+  { name, location, github, linkedin, instagram } // this destructures the object on the function definition. it generates html and returns back with properties inserted
+) =>
+  `<!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -27,48 +29,51 @@ const generateHTML = ({ name, location, github, linkedin, instagram }) => // thi
     </html>`;
 
 inquirer
-    .prompt([
-        {
-            type: 'input',
-            name: 'name',
-            message: 'What is your name?',
-        },
-        {
-            type: 'input',
-            name: 'location',
-            message: 'Where are you from?',
-        },
-        {
-            type: 'input',
-            name: 'hobby',
-            message: 'What is your favourite hobby?',
-        },
-        {
-            type: 'input',
-            name: 'food',
-            message: 'What is your favourite food?',
-        },
-        {
-            type: 'input',
-            name: 'github',
-            message: 'Enter your GitHub username',
-        },
-        {
-            type: 'input',
-            name: 'instagram',
-            message: 'Enter your Instagram handle',
-        },
-        {
-            type: 'input',
-            name: 'linkedin',
-            message: 'Enter your LinkedIn URL',
-        },
-]) 
-.then((answers)=>
-    // { name, location, hobby, food }
+  .prompt([
+    {
+      type: "input", // user types in the answers and stores into each property
+      name: "name",
+      message: "What is your name?",
+    },
+    {
+      type: "input",
+      name: "location",
+      message: "Where are you from?",
+    },
+    {
+      type: "input",
+      name: "hobby",
+      message: "What is your favourite hobby?",
+    },
+    {
+      type: "input",
+      name: "food",
+      message: "What is your favourite food?",
+    },
+    {
+      type: "input",
+      name: "github",
+      message: "Enter your GitHub username",
+    },
+    {
+      type: "input",
+      name: "instagram",
+      message: "Enter your Instagram handle",
+    },
+    {
+      type: "input",
+      name: "linkedin",
+      message: "Enter your LinkedIn URL",
+    },
+  ])
+  .then((answers) => {
+    // answers = { name, location, hobby, food, github, instagram, linkedin }
     const htmlPageContent = generateHTML(answers);
 
-    fs.writeFile('index.html', htmlPageContent, (err) =>
-    err ? console.log(err) : console.log("Success!")
+    fs.writeFile(
+      "index.html",
+      htmlPageContent,
+      (err) =>
+        err ? console.log(err) : console.log("Successfully created HTML!") // callback function to print error into console
     );
-);
+  });
